@@ -15,7 +15,7 @@
     "docker:run": "docker run -p 3000:3000 video-service",
     "deploy": "npm run build && wrangler deploy --assets=./dist",
     "pages:deploy": "npm run build && wrangler pages deploy dist --project-name=video-service --assets=./dist",
-    "copy-static": "cp -r public/* dist/",
+    "copy-static": "mkdir -p dist/public && cp -r public/* dist/public/",
     "secret:database": "npx wrangler secret put DATABASE_URL",
     "secret:cf-account": "npx wrangler secret put CLOUDFLARE_ACCOUNT_ID",
     "secret:cf-key": "npx wrangler secret put CLOUDFLARE_ACCESS_KEY_ID",
