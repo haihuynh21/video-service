@@ -12,7 +12,7 @@ pages_build_output_dir = "dist"
 vars = { 
   NODE_ENV = "production", 
   ENVIRONMENT = "production",
-  NODE_VERSION = "20.2.0"
+  NODE_VERSION = "20.2"
 }
 
 [[r2_buckets]]
