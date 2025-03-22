@@ -9,17 +9,10 @@ command = "npm install && npm run prisma:generate && npm run build"
 
 [vars]
 NODE_ENV = "production"
-
-pages_build_output_dir = "dist"
+ENVIRONMENT = "production"
 
 [env.production]
-vars = { 
-  NODE_ENV = "production",
-  ENVIRONMENT = "production"
-}
-
-# Cấu hình R2 cho môi trường production
-[[env.production.r2_buckets]]
-binding = "VIDEO_BUCKET"
-bucket_name = "gradestack"
-preview_bucket_name = "gradestack-dev"
+# Cấu hình cho production environment
+r2_buckets = [
+  { binding = "VIDEO_BUCKET", bucket_name = "gradestack", preview_bucket_name = "gradestack-dev" }
+]
