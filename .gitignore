@@ -10,3 +10,10 @@ hls/
 wrangler.toml
 wrangler.toml.*
 wrangler.jsonc
+*.log
+*.lock
+dist/
+build/
+coverage/
+.env.local
+.env.*.local

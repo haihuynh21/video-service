@@ -15,7 +15,7 @@
     "docker:run": "docker run -p 3000:3000 video-service",
     "deploy": "npm run build && wrangler deploy",
     "pages:deploy": "npm run build && wrangler pages deploy dist --project-name=video-service --assets=./dist",
-    "copy-static": "rimraf dist/public && mkdir -p dist/public && copyfiles -u 1 \"public/**/*\" dist/public",
+    "copy-static": "rimraf dist/public && mkdir dist/public 2>nul || true && copyfiles -u 1 \"public/**/*\" dist/public",
     "secret:database": "npx wrangler secret put DATABASE_URL",
     "secret:cf-account": "npx wrangler secret put CLOUDFLARE_ACCOUNT_ID",
     "secret:cf-key": "npx wrangler secret put CLOUDFLARE_ACCESS_KEY_ID",
@@ -57,7 +57,8 @@
     "prisma": "^6.5.0",
     "rimraf": "^6.0.1",
     "ts-node": "^10.9.2",
-    "typescript": "^5.8.2"
+    "typescript": "^5.8.2",
+    "copyfiles": "^2.4.1"
   },
   "engines": {
     "node": ">=20.2.0"
