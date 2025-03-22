@@ -14,7 +14,7 @@ format = "service-worker"
 
 [vars]
 NODE_ENV = "production"
-
+NODE_VERSION = "20.2.0"
 [env.production]
 vars = { ENVIRONMENT = "production" }
 
