@@ -6,14 +6,15 @@
   "scripts": {
     "start": "node dist/server.js",
     "dev": "nodemon --exec ts-node src/server.ts",
-    "build": "rimraf dist && tsc && npm run prisma:generate",
+    "build": "rimraf dist && tsc && npm run prisma:generate && npm run copy-static",
     "lint": "eslint --ext .ts src/",
     "prisma:generate": "prisma generate client",
     "prisma:migrate": "prisma migrate dev",
     "docker:build": "docker build -t video-service .",
     "docker:run": "docker run -p 3000:3000 video-service",
-    "deploy": "npm run build && wrangler deploy",
-    "pages:deploy": "npm run build && wrangler pages deploy dist --project-name=video-service"
+    "deploy": "wrangler pages deploy dist --project-name video-service",
+    "pages:deploy": "npm run build && wrangler pages deploy dist --project-name=video-service",
+    "copy-static": "cp -r public/* dist/"
   },
   "keywords": [],
   "author": "",
