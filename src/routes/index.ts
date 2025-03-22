@@ -1,8 +1,7 @@
-import { Router } from 'express';
-import videoRoutes from './video.routes';
+import { Hono } from 'hono';
+import { videos } from './video.routes';
 
-const router = Router();
+const app = new Hono();
+app.route('/api/videos', videos);
 
-router.use('/api/videos', videoRoutes);
-
-export default router;
+export { app };

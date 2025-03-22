@@ -1,54 +1,27 @@
-/// <reference types="@cloudflare/workers-types" />
+import { Hono } from 'hono';
+import { cors } from 'hono/cors';
+import { videos } from './routes/videos';
+import { CloudflareEnv } from './types';
 
-interface Env {
-  DATABASE_URL: string;
-  CLOUDFLARE_ACCOUNT_ID: string;
-  CLOUDFLARE_ACCESS_KEY_ID: string;
-  CLOUDFLARE_SECRET_ACCESS_KEY: string;
-  CLOUDFLARE_R2_BUCKET: string;
-  CLOUDFLARE_R2_PUBLIC_URL: string;
-  VIDEO_BUCKET: R2Bucket;
-  __STATIC_CONTENT: KVNamespace;
-}
+const app = new Hono<{ Bindings: CloudflareEnv }>();
 
-interface AssetManifest {
-  contentType: string;
-}
+app.use('/*', cors({
+  origin: '*',
+  allowHeaders: ['Content-Type', 'Authorization'],
+  allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+}));
+
+app.route('/api/videos', videos);
+
+app.get('/', (c) => c.json({ 
+  status: 'ok',
+  timestamp: new Date().toISOString(),
+  env: {
+    hasR2: !!c.env.VIDEO_BUCKET,
+    hasDB: !!c.env.DATABASE_URL
+  }
+}));
 
 export default {
-  async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
-    try {
-      const url = new URL(request.url);
-      
-      // Serve static assets
-      if (!url.pathname.startsWith('/api')) {
-        const asset = await env.__STATIC_CONTENT.get(url.pathname);
-        if (asset) {
-          const metadata = await env.__STATIC_CONTENT.get(url.pathname + '.metadata');
-          const manifest = metadata ? JSON.parse(metadata) as AssetManifest : null;
-          
-          const headers = new Headers({
-            'content-type': manifest?.contentType || 'text/plain',
-            'cache-control': 'public, max-age=31536000',
-          });
-          return new Response(asset, { headers });
-        }
-      }
-
-      // API endpoints
-      return new Response(JSON.stringify({
-        status: 'ok',
-        message: 'Worker is running',
-        env: {
-          hasDatabase: !!env.DATABASE_URL,
-          hasR2: !!env.VIDEO_BUCKET
-        }
-      }), {
-        headers: { 'Content-Type': 'application/json' }
-      });
-
-    } catch (error) {
-      return new Response('Error in worker', { status: 500 });
-    }
-  }
+  fetch: app.fetch,
 };

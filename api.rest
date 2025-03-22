@@ -1,0 +1,28 @@
+### Upload Video
+POST http://localhost:3000/api/videos
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary
+ 
+------WebKitFormBoundary
+Content-Disposition: form-data; name="video"; filename="css.mp4"
+Content-Type: video/mp4
+ 
+< C:\\Users\\admin\\Downloads\\css.mp4
+------WebKitFormBoundary--
+
+### Get All Videos
+GET http://localhost:3000/api/videos
+
+### Get Single Video
+GET http://localhost:3000/api/videos/123
+
+### Update Video
+PATCH http://localhost:3000/api/videos/123
+Content-Type: application/json
+
+{
+    "title": "Updated Video Title",
+    "description": "Updated video description"
+}
+
+### Delete Video
+DELETE http://localhost:3000/api/videos/123
