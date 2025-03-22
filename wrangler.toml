@@ -14,9 +14,11 @@ format = "service-worker"
 [vars]
 NODE_ENV = "production"
 
+[pages_build_output_dir]
+value = "dist"
+
 [env.production]
 vars = { ENVIRONMENT = "production" }
-node_compat = true
 
 [[r2_buckets]]
 binding = "VIDEO_BUCKET"
