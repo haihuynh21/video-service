@@ -1,0 +1,37 @@
+name = "video-service"
+type = "javascript"
+account_id = "107f550b334bbef92303090ba5ce56ae"
+workers_dev = true
+compatibility_date = "2024-01-01"
+compatibility_flags = ["nodejs_compat"]
+node_compat = true
+
+[build]
+command = "npm install && npm run build"
+[build.upload]
+format = "service-worker"
+
+[env.production]
+vars = { 
+    NODE_ENV = "production",
+    DATABASE_URL="prisma+postgres://accelerate.prisma-data.net/?api_key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlfa2V5IjoiNDY2NmQyMmItMzJkZC00ZWZjLWIyMjUtNjdmODM4OTc4NmFhIiwidGVuYW50X2lkIjoiNGRjN2QzYTJlNjJlMDNjODJmZDlmOWMzOWM5ZDY0MGNlNjRlODQ4ZmFlYzgwZDM5MDY1NmFjYjMxNjZjNDE0OSIsImludGVybmFsX3NlY3JldCI6IjZhMWYwNDJhLWRjMDMtNDZiOS05MTVlLTdiMTJmMTQxNzk5NyJ9.quK7JHymJKPx8SJ3rKjtNc2AboHhIoNUjhPtS-Opcgc",
+    CLOUDFLARE_ACCOUNT_ID="107f550b334bbef92303090ba5ce56ae",
+    CLOUDFLARE_ACCESS_KEY_ID="9edfa806931c30e6e39a5eec5a3eed9a",
+    CLOUDFLARE_SECRET_ACCESS_KEY="bb3bac6af70c40ce20ebaa8861ed0481411cc420334d74fb128a91dcd45b79e5",
+    CLOUDFLARE_R2_BUCKET="gradestack",
+    CLOUDFLARE_R2_PUBLIC_URL="https://pub-dafea69342db4ec593c6d0d001af4f41.r2.dev"
+
+}
+
+# Cấu hình R2
+[[r2_buckets]]
+binding = "VIDEO_BUCKET" 
+bucket_name = "gradestack"
+preview_bucket_name = "gradestack-dev"
+
+[[routes]]
+pattern = "/api/*"
+zone_id = "[your-zone-id]"
+
+[miniflare]
+node_compat = true
