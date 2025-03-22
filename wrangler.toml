@@ -14,7 +14,6 @@ format = "service-worker"
 
 [vars]
 NODE_ENV = "production"
-DATABASE_URL = "prisma+postgres://accelerate.prisma-data.net/?api_key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlfa2V5IjoiNDY2NmQyMmItMzJkZC00ZWZjLWIyMjUtNjdmODM4OTc4NmFhIiwidGVuYW50X2lkIjoiNGRjN2QzYTJlNjJlMDNjODJmZDlmOWMzOWM5ZDY0MGNlNjRlODQ4ZmFlYzgwZDM5MDY1NmFjYjMxNjZjNDE0OSIsImludGVybmFsX3NlY3JldCI6IjZhMWYwNDJhLWRjMDMtNDZiOS05MTVlLTdiMTJmMTQxNzk5NyJ9.quK7JHymJKPx8SJ3rKjtNc2AboHhIoNUjhPtS-Opcgc"
 
 [env.production]
 vars = { ENVIRONMENT = "production" }
