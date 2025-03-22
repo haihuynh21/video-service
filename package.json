@@ -6,13 +6,14 @@
   "scripts": {
     "start": "node dist/server.js",
     "dev": "nodemon --exec ts-node src/server.ts",
-    "build": "rimraf dist && tsc && npm run prisma:generate && npm run copy-static",
+    "build:worker": "tsc -p tsconfig.worker.json",
+    "build": "rimraf dist && npm run build:worker && npm run prisma:generate && npm run copy-static",
     "lint": "eslint --ext .ts src/",
     "prisma:generate": "prisma generate client",
     "prisma:migrate": "prisma migrate dev",
     "docker:build": "docker build -t video-service .",
     "docker:run": "docker run -p 3000:3000 video-service",
-    "deploy": "wrangler pages deploy dist --project-name video-service",
+    "deploy": "npm run build && wrangler deploy",
     "pages:deploy": "npm run build && wrangler pages deploy dist --project-name=video-service",
     "copy-static": "cp -r public/* dist/",
     "secret:database": "npx wrangler secret put DATABASE_URL",
@@ -45,6 +46,7 @@
     "zod": "^3.24.2"
   },
   "devDependencies": {
+    "@cloudflare/workers-types": "^4.20250321.0",
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.1",
     "@types/fluent-ffmpeg": "^2.1.27",
