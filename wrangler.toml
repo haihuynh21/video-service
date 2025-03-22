@@ -8,14 +8,12 @@ command = "npm run build"
 bucket = "./dist"
 pages_build_output_dir = "dist"
 
-[env.production]
-vars = { 
-  NODE_ENV = "production", 
-  ENVIRONMENT = "production",
-  NODE_VERSION = "20.2"
-}
+[env.production.var]
+NODE_ENV = "production"
+ENVIRONMENT = "production"
+NODE_VERSION = "20.2"
+
 
 [[r2_buckets]]
-binding = "VIDEO_BUCKET"
 bucket_name = "gradestack"
 preview_bucket_name = "gradestack-dev"
