@@ -1,0 +1,27 @@
+name = "video-service"
+type = "javascript"
+account_id = "107f550b334bbef92303090ba5ce56ae" # Thay bằng account_id từ .env
+workers_dev = true
+compatibility_date = "2024-01-01"
+
+[build]
+command = "npm run build"
+[build.upload]
+format = "service-worker"
+
+[env.production]
+vars = { 
+  NODE_ENV = "production",
+  DATABASE_URL = "prisma+postgres://accelerate.prisma-data.net/?api_key=..."
+}
+
+# Cấu hình R2
+[[r2_buckets]]
+binding = "VIDEO_BUCKET" 
+bucket_name = "gradestack"
+preview_bucket_name = "gradestack-dev"
+
+# Cấu hình routes
+[[routes]]
+pattern = "/api/*"
+zone_id = "[your-zone-id]"
