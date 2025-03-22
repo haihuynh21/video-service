@@ -12,8 +12,8 @@
     "prisma:migrate": "prisma migrate dev",
     "docker:build": "docker build -t video-service .",
     "docker:run": "docker run -p 3000:3000 video-service",
-    "deploy": "wrangler deploy --compatibility-date=2024-01-01",
-    "pages:deploy": "wrangler pages deploy dist"
+    "deploy": "npm run build && wrangler deploy",
+    "pages:deploy": "npm run build && wrangler pages deploy dist --project-name=video-service"
   },
   "keywords": [],
   "author": "",

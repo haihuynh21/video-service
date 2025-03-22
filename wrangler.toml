@@ -1,29 +1,25 @@
 name = "video-service"
-type = "javascript"
-account_id = "107f550b334bbef92303090ba5ce56ae"
-workers_dev = true
+main = "dist/index.js"
 compatibility_date = "2024-01-01"
 compatibility_flags = ["nodejs_compat"]
 node_compat = true
 
 [build]
 command = "npm install && npm run prisma:generate && npm run build"
-[build.upload]
-format = "service-worker"
 
 [vars]
 NODE_ENV = "production"
 
-[pages_build_output_dir]
-value = "dist"
+pages_build_output_dir = "dist"
 
 [env.production]
-vars = { ENVIRONMENT = "production" }
+vars = { 
+  NODE_ENV = "production",
+  ENVIRONMENT = "production"
+}
 
-[[r2_buckets]]
+# Cấu hình R2 cho môi trường production
+[[env.production.r2_buckets]]
 binding = "VIDEO_BUCKET"
 bucket_name = "gradestack"
 preview_bucket_name = "gradestack-dev"
-
-[miniflare]
-node_compat = true
