@@ -9,7 +9,11 @@ bucket = "./dist"
 pages_build_output_dir = "dist"
 
 [env.production]
-vars = { NODE_ENV = "production", ENVIRONMENT = "production" }
+vars = { 
+  NODE_ENV = "production", 
+  ENVIRONMENT = "production",
+  NODE_VERSION = "20.2.0"
+}
 
 [[r2_buckets]]
 binding = "VIDEO_BUCKET"
