@@ -5,7 +5,9 @@
     "module": "ES2020",
     "lib": ["ES2020"],
     "types": ["@cloudflare/workers-types"],
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "outDir": "./dist",
+    "rootDir": "./src"
   },
   "include": ["src/worker/**/*.ts"],
   "exclude": ["node_modules", "dist"]

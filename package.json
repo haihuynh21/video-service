@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node dist/server.js",
     "dev": "nodemon --exec ts-node src/server.ts",
-    "build:worker": "tsc -p tsconfig.worker.json",
+    "build:worker": "tsc -p tsconfig.worker.json && mkdir -p dist/worker && mv dist/src/worker/* dist/worker/ && rm -rf dist/src",
     "build": "rimraf dist && npm run build:worker && npm run prisma:generate && npm run copy-static",
     "lint": "eslint --ext .ts src/",
     "prisma:generate": "prisma generate client",
