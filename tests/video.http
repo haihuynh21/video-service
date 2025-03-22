@@ -1,5 +1,5 @@
-@baseUrl = http://localhost:3000/api
-@videoId = 7
+@baseUrl = https://5c57ccd9.video-service-b08.pages.dev/api
+@videoId = 1
 
 ### Get all videos with pagination
 GET {{baseUrl}}/videos?page=1&limit=10

@@ -7,3 +7,5 @@ videos/
 thumbnails/
 hls/
 .DS_Store
+wrangler.toml
+wrangler.toml.*

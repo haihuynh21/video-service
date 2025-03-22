@@ -14,7 +14,17 @@
     "docker:run": "docker run -p 3000:3000 video-service",
     "deploy": "wrangler pages deploy dist --project-name video-service",
     "pages:deploy": "npm run build && wrangler pages deploy dist --project-name=video-service",
-    "copy-static": "cp -r public/* dist/"
+    "copy-static": "cp -r public/* dist/",
+    "secret:database": "npx wrangler secret put DATABASE_URL",
+    "secret:cf-account": "npx wrangler secret put CLOUDFLARE_ACCOUNT_ID",
+    "secret:cf-key": "npx wrangler secret put CLOUDFLARE_ACCESS_KEY_ID",
+    "secret:cf-secret": "npx wrangler secret put CLOUDFLARE_SECRET_ACCESS_KEY",
+    "secret:cf-bucket": "npx wrangler secret put CLOUDFLARE_R2_BUCKET",
+    "secret:cf-url": "npx wrangler secret put CLOUDFLARE_R2_PUBLIC_URL",
+    "secret:all": "npm run secret:database && npm run secret:cf-account && npm run secret:cf-key && npm run secret:cf-secret && npm run secret:cf-bucket && npm run secret:cf-url",
+    "worker:init-secrets": "npm run secret:all",
+    "worker:dev": "wrangler dev",
+    "worker:deploy": "wrangler deploy"
   },
   "keywords": [],
   "author": "",
@@ -31,6 +41,7 @@
     "fs-extra": "^11.3.0",
     "multer": "^1.4.5-lts.2",
     "path": "^0.12.7",
+    "wrangler": "^4.4.0",
     "zod": "^3.24.2"
   },
   "devDependencies": {
