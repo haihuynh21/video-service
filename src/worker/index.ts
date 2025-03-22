@@ -8,11 +8,34 @@ interface Env {
   CLOUDFLARE_R2_BUCKET: string;
   CLOUDFLARE_R2_PUBLIC_URL: string;
   VIDEO_BUCKET: R2Bucket;
+  __STATIC_CONTENT: KVNamespace;
+}
+
+interface AssetManifest {
+  contentType: string;
 }
 
 export default {
-  async fetch(request: Request, env: Env): Promise<Response> {
+  async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     try {
+      const url = new URL(request.url);
+      
+      // Serve static assets
+      if (!url.pathname.startsWith('/api')) {
+        const asset = await env.__STATIC_CONTENT.get(url.pathname);
+        if (asset) {
+          const metadata = await env.__STATIC_CONTENT.get(url.pathname + '.metadata');
+          const manifest = metadata ? JSON.parse(metadata) as AssetManifest : null;
+          
+          const headers = new Headers({
+            'content-type': manifest?.contentType || 'text/plain',
+            'cache-control': 'public, max-age=31536000',
+          });
+          return new Response(asset, { headers });
+        }
+      }
+
+      // API endpoints
       return new Response(JSON.stringify({
         status: 'ok',
         message: 'Worker is running',
@@ -23,6 +46,7 @@ export default {
       }), {
         headers: { 'Content-Type': 'application/json' }
       });
+
     } catch (error) {
       return new Response('Error in worker', { status: 500 });
     }
